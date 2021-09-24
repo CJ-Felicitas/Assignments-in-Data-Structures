@@ -1,0 +1,97 @@
+ // scanner for data input from the user.
+        Scanner kb = new Scanner(System.in);
+        MyArrayList list = new MyArrayList<>();
+int option;
+char verify;
+     System.out.println();
+     System.out.println();
+     System.out.println();
+    
+      // initial data that will be inserted to the array
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        list.add(5);
+        list.add(6);
+        list.add(7);
+        list.add(8);
+        list.add(9);
+        list.add(10);
+        
+
+        do{
+            System.out.print("1. SHOW LIST \n2. ADD \n3. SEARCH \n4. REMOVE \n5. REPLACE \n6. EXIT \n> ");
+
+            option = kb.nextInt();
+            
+    
+        switch (option) {
+
+            // displays the list of the array or the elements of the array
+            case 1: System.out.println("\nSHOW LIST");
+                list.show_list();
+               System.out.println();
+               System.out.println();
+
+                break;
+
+                case 2: System.out.println("\nADD");
+                System.out.print("> ");
+              String data = kb.next();
+               list.add(data);
+               System.out.println();
+               System.out.println();
+break; 
+
+//performs a search and displays the data from the index
+            case 3: System.out.println("\nSEARCH");
+            System.out.print("index > ");
+            int index_search = kb.nextInt();
+           System.out.println("\n"+list.get(index_search));
+           System.out.println();
+           System.out.println();
+break;
+
+// removes the data from the index of the array
+case 4: System.out.println("\nREMOVE");
+         System.out.print("index > ");
+         int index_remove = kb.nextInt();
+         list.remove(index_remove);
+
+         
+         break;
+// replaces the value of the index of the array
+
+         case 5: System.out.println("\nREPLACE");
+     System.out.print("Replace at index > ");
+     int index_replace = kb.nextInt();
+     System.out.print("Value to be replaced > ");
+      String data_replace = kb.next();
+      list.set(index_replace, data_replace);
+System.out.println("\n");
+      break;
+
+         default:
+                break;
+        }
+
+    } while (option != 6);
+    
+ 
+
+
+
+    public void show_list() {
+        String s;
+        s = "[";
+        if (size() > 0)
+            s += theItems[0];
+        if (size() > 1)
+        for (int i = 1; i <= size() - 1; i++) {
+            s += ", " + theItems[i];
+        }
+        System.out.println(s+"]");
+    }
+
+        
