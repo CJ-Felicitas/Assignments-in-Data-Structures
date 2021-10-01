@@ -1,10 +1,19 @@
-import java.util.Arrays;
+
 import java.util.Scanner;
+
+/*
+Modified by Cedrick James B. Felicitas
+Last Date Modified: September 30, 2021 
+
+
+
+*/
 
 public class MyArrayList<AnyType> implements Iterable<AnyType> {
 
     private static final int DEFAULT_CAPACITY = 10;
-
+    // ive changed it to static because ive encountered some issues about the size
+    // of array in the sort code
     private static int theSize;
     private AnyType[] theItems;
 
@@ -82,6 +91,8 @@ public class MyArrayList<AnyType> implements Iterable<AnyType> {
         theSize--;
         return removedItem;
     }
+    // this is the method that ive added that just basically prints out all the
+    // items in the list.
 
     public void show_list() {
         String s;
@@ -122,16 +133,24 @@ public class MyArrayList<AnyType> implements Iterable<AnyType> {
         Scanner kb = new Scanner(System.in);
         MyArrayList list = new MyArrayList<>();
         int option;
-        char verify;
+
         System.out.println();
         System.out.println();
         System.out.println();
 
-        // initial data that will be inserted to the array
+        // initial data that will be inserted to the array just for the show list
+        // purposes only
+        // the order of adding the data is just like this
+        // 10 9 9 7 6 5 4 3 2 1
         for (int i = 10; i > 0; i--) {
             list.add(i);
+            System.out.print(" " + i);
         }
 
+        System.out.println("\n");
+
+        // do while loop for the menu driven that will terminate the code once the user
+        // chooses option 6
         do {
             System.out.print("1. SHOW LIST \n2. ADD \n3. SEARCH \n4. REMOVE \n5. REPLACE \n6. EXIT \n> ");
 
@@ -147,7 +166,9 @@ public class MyArrayList<AnyType> implements Iterable<AnyType> {
                     System.out.println();
 
                     int[] set = new int[list.size()];
+                    // perform a loop end distribute each value to the integer array
                     for (int i = 0; i < list.size(); i++) {
+                        // typecast the items of the list into integer
                         set[i] = (Integer) list.get(i);
                     }
 
@@ -163,18 +184,27 @@ public class MyArrayList<AnyType> implements Iterable<AnyType> {
                         }
                     }
 
+                    // use the set method and replace the orginal data of the list with the new
+                    // sorted array of integer
                     for (int i = 0; i < list.size(); i++) {
                         list.set(i, set[i]);
-
                     }
-                    list.show_list();
 
+                    list.show_list(); // this is the method that I've created that will just basically prints out all
+                                      // the items from the list
+
+                    System.out.println("\n");
                     break;
 
                 case 2:
                     System.out.println("\nADD");
                     System.out.print("> ");
                     int data = kb.nextInt();
+
+                    // adds a data from the list, since ive only used the method that has one param
+                    // the data that will be added was supposed to sit at the end of the list
+                    // and when we try to choose the option show list, the data that has been added
+                    // will be sorted based on his proper position in the ascending order
 
                     list.add(data);
 
@@ -187,6 +217,7 @@ public class MyArrayList<AnyType> implements Iterable<AnyType> {
                     System.out.println("\nSEARCH");
                     System.out.print("index > ");
                     int index_search = kb.nextInt();
+                    // returns the data of the specified index in the list
                     System.out.println("\n" + list.get(index_search));
                     System.out.println();
                     System.out.println();
@@ -197,10 +228,10 @@ public class MyArrayList<AnyType> implements Iterable<AnyType> {
                     System.out.println("\nREMOVE");
                     System.out.print("index > ");
                     int index_remove = kb.nextInt();
+                    // removes a data of the specified index in the list
                     list.remove(index_remove);
 
                     break;
-                // replaces the value of the index of the array
 
                 case 5:
                     System.out.println("\nREPLACE");
@@ -208,6 +239,9 @@ public class MyArrayList<AnyType> implements Iterable<AnyType> {
                     int index_replace = kb.nextInt();
                     System.out.print("Value to be replaced > ");
                     int data_replace = kb.nextInt();
+
+                    // replaces the value of the specified index and replaces it with a specified
+                    // data
                     list.set(index_replace, data_replace);
                     System.out.println("\n");
                     break;
@@ -217,16 +251,7 @@ public class MyArrayList<AnyType> implements Iterable<AnyType> {
             }
 
         } while (option != 6);
-
-    }
-
-    public int[] sorter(AnyType[] array) {
-
-        int[] set = new int[array.length];
-        for (int i = 0; i < array.length; i++) {
-            set[i] = (Integer) array[i];
-        }
-        return set;
+        // end of code
 
     }
 
