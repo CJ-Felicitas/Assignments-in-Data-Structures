@@ -41,31 +41,9 @@ tail.next = null;
 }
 
 
-void sorter(){
-  Node temporary = head;
-int temp;
-
-  if (head==null) {
-  System.out.println("The list is empty");
-  return;
-}
-while (temporary!=null) {
-while (temporary.data>temporary.next.data) {
-  temp = temporary.data;
-  temporary.data = temporary.next.data;
-  temporary.next.data = temp;
-}
-
-}
-
-
-}
-
-
 
 void printshit(){
-
-  sorter();
+  sortList();
 
   Node node = head;
   if (head==null) {
@@ -80,6 +58,28 @@ void printshit(){
 
 }
 
+public void sortList() {  
+  Node current = null, index = null;  
+  int temp;   
+  //Check whether list is empty  
+  if(head == null) {  
+      return;  
+  }  
+  else {  
+      //Current will point to head  
+      for(current = head; current.next != null; current = current.next) {  
+          //Index will point to node next to current  
+          for(index = current.next; index != null; index = index.next) {  
+              //If current's data is greater than index's data, swap the data of current and index  
+              if(current.data > index.data) {  
+                  temp = current.data;  
+                  current.data = index.data;  
+                  index.data = temp;  
+              }  
+          }  
+      }  
+  }  
+}  
 
 
 
