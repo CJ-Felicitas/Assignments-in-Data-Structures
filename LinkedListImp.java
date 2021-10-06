@@ -43,7 +43,7 @@ tail.next = null;
 
 
 void printshit(){
-  sortList();
+
 
   Node node = head;
   if (head==null) {
