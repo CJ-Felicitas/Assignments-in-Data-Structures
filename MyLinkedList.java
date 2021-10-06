@@ -166,6 +166,14 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType> {
         }
     }
 
+    /**
+     * 
+     * 
+     * a method that automatically sorts the list
+     * base on ascending order
+     * 
+     * 
+     */
     void sorter() {
      
         AnyType temp;
@@ -174,7 +182,7 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType> {
             return;
         } else {
 
-            // first loop
+            
             for (int i = 0; i < size(); i++) {
                 // second loop
                 for (int j = i+1; j < size(); j++) {
@@ -193,10 +201,9 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType> {
 
     }
 
-    void printshit() {
-AnyType temp;
-     
-sorter();
+    void printList() {
+
+        sorter();
         Node node = beginMarker;
         if (beginMarker == null) {
             System.out.println("This list is empty");
@@ -217,18 +224,105 @@ sorter();
 
     public static void main(String args[]) {
 
-        MyLinkedList list = new MyLinkedList();
-
+ 
         // scanner for data input from the user.
         Scanner kb = new Scanner(System.in);
-list.add(45);
-list.add(44);
-list.add(34);
-list.add(23);
+        MyLinkedList list = new MyLinkedList<>();
+        int option;
 
+        System.out.println();
+        System.out.println();
+        System.out.println();
 
+        // initial data that will be inserted to the array just for the show list
+        // purposes only
+        // the order of adding the data is just like this
+        // 10 9 9 7 6 5 4 3 2 1
+        for (int i = 10; i > 0; i--) {
+            list.add(i);
+            System.out.print(" " + i);
+        }
 
-list.printshit();
+        System.out.println("\n");
+
+        // do while loop for the menu driven that will terminate the code once the user
+        // chooses option 6
+        do {
+            System.out.print("1. SHOW LIST \n2. ADD \n3. SEARCH \n4. REMOVE \n5. REPLACE \n6. EXIT \n> ");
+
+            option = kb.nextInt();
+
+            switch (option) {
+
+                // displays the list of the array or the elements of the array
+                case 1:
+                    System.out.println("\nSHOW LIST");
+
+                    System.out.println();
+                    System.out.println();
+
+            
+
+                    list.printList();
+                    System.out.println("\n");
+                    break;
+
+                case 2:
+                    System.out.println("\nADD");
+                    System.out.print("> ");
+                    int data = kb.nextInt();
+
+                    // adds a data from the list, since ive only used the method that has one param
+                    // the data that will be added was supposed to sit at the end of the list
+                    // and when we try to choose the option show list, the data that has been added
+                    // will be sorted based on his proper position in the ascending order
+
+                    list.add(data);
+
+                    System.out.println();
+                    System.out.println();
+                    break;
+
+                // performs a search and displays the data from the index
+                case 3:
+                    System.out.println("\nSEARCH");
+                    System.out.print("index > ");
+                    int index_search = kb.nextInt();
+                    // returns the data of the specified index in the list
+                    System.out.println("\n" + list.get(index_search));
+                    System.out.println();
+                    System.out.println();
+                    break;
+
+                // removes the data from the index of the array
+                case 4:
+                    System.out.println("\nREMOVE");
+                    System.out.print("index > ");
+                    int index_remove = kb.nextInt();
+                    // removes a data of the specified index in the list
+                    list.remove(index_remove);
+
+                    break;
+
+                case 5:
+                    System.out.println("\nREPLACE");
+                    System.out.print("Replace at index > ");
+                    int index_replace = kb.nextInt();
+                    System.out.print("Value to be replaced > ");
+                    int data_replace = kb.nextInt();
+
+                    // replaces the value of the specified index and replaces it with a specified
+                    // data
+                    list.set(index_replace, data_replace);
+                    System.out.println("\n");
+                    break;
+
+                default:
+                    break;
+            }
+
+        } while (option != 6);
+        // end of code
 
 
 }
