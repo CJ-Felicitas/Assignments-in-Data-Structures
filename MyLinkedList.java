@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author Vera Kim Tequin
+ * @author Cedrick James Felicitas
  */
 public class MyLinkedList<AnyType> implements Iterable<AnyType> {
 
@@ -184,7 +184,7 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType> {
 
             
             for (int i = 0; i < size(); i++) {
-                // second loop
+               
                 for (int j = i+1; j < size(); j++) {
                     if ((Integer) getNode(i).data > (Integer) getNode(j).data) {
                                  
@@ -201,21 +201,14 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType> {
 
     }
 
-    void printList() {
-
-        sorter();
-        Node node = beginMarker;
-        if (beginMarker == null) {
-            System.out.println("This list is empty");
-            return;
-        }   
-
-        while (node != null) {
-            System.out.print(node.data + " ");
-            node = node.next;
+    void printlist(){
+sorter();
+        for (int i = 0; i < size(); i++) {
+            System.out.print(get(i)+" ");
         }
-
     }
+
+  
 
     private int theSize;
     private int modCount;
@@ -237,8 +230,8 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType> {
         // initial data that will be inserted to the array just for the show list
         // purposes only
         // the order of adding the data is just like this
-        // 10 9 9 7 6 5 4 3 2 1
-        for (int i = 10; i > 0; i--) {
+        // 10 9 8 7 6 5 4 3 2 1 0 
+        for (int i = 10; i >= 0; i--) {
             list.add(i);
             System.out.print(" " + i);
         }
@@ -260,11 +253,8 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType> {
 
                     System.out.println();
                     System.out.println();
-
-            
-
-                    list.printList();
-                    System.out.println("\n");
+list.printlist();
+               System.out.println("\n");
                     break;
 
                 case 2:
