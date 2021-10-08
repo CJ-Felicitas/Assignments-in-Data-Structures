@@ -1,10 +1,7 @@
 import java.util.Scanner;
 
-
-
 /**
- *
- * @author Cedrick James Felicitas
+ * Data Structures modified by Cedrick James Felicitas BSIT-2A
  */
 public class MyLinkedList<AnyType> implements Iterable<AnyType> {
 
@@ -99,27 +96,13 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType> {
 
         if (idx < lower || idx > upper)
             throw new IndexOutOfBoundsException();
-        /*
-         * search and get starts at middle of the list if the size is greater than the
-         * specified index then search from head to middle
-         * 
-         * (code)--> (stop) 1 2 3 4 / 5 6 7 8
-         */
+
         if (idx < size() / 2) {
             p = beginMarker.next;
             for (int i = 0; i < idx; i++)
                 p = p.next;
         }
 
-        /*
-         * 
-         * search and get starts at the middle of the list if the specified index is
-         * greater than the half size of the list then search at the end of the list
-         * 
-         * (stop) <---(code) 1 2 3 4 / 5 6 7 8
-         * 
-         * 
-         */
         else {
             p = endMarker;
             for (int i = size(); i > idx; i--)
@@ -167,30 +150,48 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType> {
     }
 
     /**
-     * 
-     * 
-     * a method that automatically sorts the list
-     * base on ascending order
-     * 
-     * 
+     * a method that will automatically sort the data of eacch nodes and arrange
+     * them in ascending order
      */
     void sorter() {
-     
-        AnyType temp;
 
+        AnyType temporary_sub;
+        // if the head is null then return a statement that the list is empty
         if (beginMarker == null) {
+            System.out.println("List is empty");
             return;
-        } else {
+        } else
 
-            
+        {
+
+            // performs 2 loops that will examine the data of which one is bigger and which
+            // one is smaller
+
             for (int i = 0; i < size(); i++) {
-               
-                for (int j = i+1; j < size(); j++) {
+
+                for (int j = i + 1; j < size(); j++) {
+                    /**
+                     * variable "i" will be compared to variable "j" on which one has a bigger value
+                     * so variable "i" starts at index 0 and variable "j" starts at index 1 if ever
+                     * that index 0 is bigger than the index 1 then they will swap values
+                     * 
+                     * performs a typecast so that the "if condition" can compare the data as
+                     * integers instead of "Anytype"
+                     * 
+                     */
                     if ((Integer) getNode(i).data > (Integer) getNode(j).data) {
-                                 
-         temp = getNode(i).data;
-         set(i, getNode(j).data);
-         set(j, temp);
+
+                        // temp sub of index i because in the next line the index i will change value
+                        temporary_sub = getNode(i).data;
+
+                        // replace the value of index i with a value of index j
+                        set(i, getNode(j).data);
+
+                        // replace the value of index j with a former value of index i
+                        // it just basically performs a swap
+                        set(j, temporary_sub);
+
+                        // and so the loop will begin up until to the last index
 
                     }
                 }
@@ -201,23 +202,22 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType> {
 
     }
 
-    void printlist(){
-sorter();
+    void printlist() {
+        // sorts the list first
+        sorter();
+        // prints the list
         for (int i = 0; i < size(); i++) {
-            System.out.print(get(i)+" ");
+            System.out.print(get(i) + " ");
         }
     }
 
-  
-
     private int theSize;
     private int modCount;
-    private Node<AnyType> beginMarker; // ill prolly guess this is head
+    private Node<AnyType> beginMarker; // i guess this one is head
     private Node<AnyType> endMarker; // and this one is tail
 
     public static void main(String args[]) {
 
- 
         // scanner for data input from the user.
         Scanner kb = new Scanner(System.in);
         MyLinkedList list = new MyLinkedList<>();
@@ -227,10 +227,13 @@ sorter();
         System.out.println();
         System.out.println();
 
-        // initial data that will be inserted to the array just for the show list
+        // initial data that will be inserted just for the show list
         // purposes only
         // the order of adding the data is just like this
-        // 10 9 8 7 6 5 4 3 2 1 0 
+        // 10 9 8 7 6 5 4 3 2 1 0
+        // descending order
+
+        System.out.println("Initial data that will be inserted");
         for (int i = 10; i >= 0; i--) {
             list.add(i);
             System.out.print(" " + i);
@@ -247,14 +250,14 @@ sorter();
 
             switch (option) {
 
-                // displays the list of the array or the elements of the array
+                // displays the sorted list
                 case 1:
                     System.out.println("\nSHOW LIST");
 
                     System.out.println();
                     System.out.println();
-list.printlist();
-               System.out.println("\n");
+                    list.printlist();
+                    System.out.println("\n");
                     break;
 
                 case 2:
@@ -262,9 +265,9 @@ list.printlist();
                     System.out.print("> ");
                     int data = kb.nextInt();
 
-                    // adds a data from the list, since ive only used the method that has one param
+                    // adds a data from the list
                     // the data that will be added was supposed to sit at the end of the list
-                    // and when we try to choose the option show list, the data that has been added
+                    // and when it is added it
                     // will be sorted based on his proper position in the ascending order
 
                     list.add(data);
@@ -284,12 +287,12 @@ list.printlist();
                     System.out.println();
                     break;
 
-                // removes the data from the index of the array
-                case 4:
+                    case 4:
+                    // removes a node from the list
                     System.out.println("\nREMOVE");
                     System.out.print("index > ");
                     int index_remove = kb.nextInt();
-                    // removes a data of the specified index in the list
+                    // removes a node of the specified index in the list
                     list.remove(index_remove);
 
                     break;
@@ -314,6 +317,5 @@ list.printlist();
         } while (option != 6);
         // end of code
 
-
-}
+    }
 }
