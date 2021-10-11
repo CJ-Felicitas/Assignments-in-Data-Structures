@@ -1,8 +1,4 @@
 
-import java.util.Scanner;
-
-import javax.swing.SizeRequirements;
-
 /*
 Modified by Cedrick James B. Felicitas
 Last Date Modified: September 30, 2021 
@@ -120,45 +116,64 @@ public class MyArrayListStack<AnyType> implements Iterable<AnyType> {
         return theItems[theSize--];
     }
 
-
     // accepts a series of parenthesis that is contained in a string
-    public boolean parenthesis_balancing(String data){
-
+    public boolean parenthesis_balancing(String data) {
 
         String group_of_parenthesis = data;
 
         // char array to break the string into pieces and contain them in an array
         Character[] array = new Character[group_of_parenthesis.length()];
-     
-        int size_count=0; // if and only if the value is set into zero then it concludes that the series is balanced
 
-        // a loop that will break the string into a char one by one and distribute into the array
+        int size_count = 0; // if and only if the value is set into zero then it concludes that the series
+                            // is balanced
+
+        // a loop that will break the string into a char one by one and distribute into
+        // the array
         for (int i = 0; i < group_of_parenthesis.length(); i++) {
             array[i] = group_of_parenthesis.charAt(i);
         }
-        
+
         // loop that will count each index of the array
         for (int i = 0; i < array.length; i++) {
-            if (array[i]=='(') {
+            if (array[i] == '(') {
                 // increments everytime if it is a push
                 size_count++;
             }
             // decrement everytime if it is a pop
-            if (array[i]==')') {
+            if (array[i] == ')') {
                 size_count--;
             }
 
-        
         }
-              // zero indicates that the series is balanced
+        // zero indicates that the series is balanced
         if (size_count == 0) {
             return true;
         }
-        // if size_count is not a zero then it will conclude that the series is unbalanced.
-        else{
+        // if size_count is not a zero then it will conclude that the series is
+        // unbalanced.
+        else {
             return false;
         }
+    }
 
+    // infix to postfix method
+    public void infix_to_postfix_conversion(String data) {
+        String infix = data;
+        String postfix = "";
+
+        Character[] array = new Character[infix.length()];
+
+        for (int i = 0; i < infix.length(); i++) {
+            array[i] = infix.charAt(i);
+        }
+      
+        for (int i = 0; i < array.length; i++) {
+                  if (array[(array[i]%2!=0)]) {
+                     
+                     postfix = postfix+array[0]+array[3];
+                  }          
+        }
+           
 
 
     }
@@ -192,8 +207,6 @@ public class MyArrayListStack<AnyType> implements Iterable<AnyType> {
         String set = "(()))((())";
 
         System.out.println(list.parenthesis_balancing(set));
-       
-
 
     }
 
