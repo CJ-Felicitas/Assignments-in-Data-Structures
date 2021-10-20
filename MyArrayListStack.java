@@ -144,8 +144,14 @@ public class MyArrayListStack<AnyType> implements Iterable<AnyType> {
                 size_count--;
             }
 
+            if (size_count<0) {
+                System.out.println("Stack empty");
+                return false;
+            }
         }
         // zero indicates that the series is balanced
+        
+        
         if (size_count == 0) {
             return true;
         }
@@ -156,27 +162,40 @@ public class MyArrayListStack<AnyType> implements Iterable<AnyType> {
         }
     }
 
-    // infix to postfix method
-    public void infix_to_postfix_conversion(String data) {
-        String infix = data;
-        String postfix = "";
 
-        Character[] array = new Character[infix.length()];
 
-        for (int i = 0; i < infix.length(); i++) {
-            array[i] = infix.charAt(i);
+    /**
+     * 
+     * This method will accept an algebraic expression and converts it
+     * into a postfix notation
+     */
+
+     public String infix_to_postfix(String data){
+         
+
+        
+        String group_of_parenthesis = data;
+
+        // char array to break the string into pieces and contain them in an array
+        Character[] array = new Character[group_of_parenthesis.length()];
+      
+      
+        for (int i = 0; i < group_of_parenthesis.length(); i++) {
+            array[i] = group_of_parenthesis.charAt(i);
         }
       
-        for (int i = 0; i < array.length; i++) {
-                  if (array[(array[i]%2!=0)]) {
-                     
-                     postfix = postfix+array[0]+array[3];
-                  }          
-        }
-           
+      
+      
+      
+      
+      
+      
+      
+        return "sdffs";
+     }
 
 
-    }
+
 
     public java.util.Iterator<AnyType> iterator() {
         return new ArrayListIterator();
@@ -204,7 +223,7 @@ public class MyArrayListStack<AnyType> implements Iterable<AnyType> {
 
         MyArrayListStack list = new MyArrayListStack<>();
 
-        String set = "(()))((())";
+       String set = "(()))((";
 
         System.out.println(list.parenthesis_balancing(set));
 
