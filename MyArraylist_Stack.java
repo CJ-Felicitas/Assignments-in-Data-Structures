@@ -1,6 +1,6 @@
 
 import java.util.Scanner;
-
+// BSIT-2A Cedrick James Felicitas
 class Stack {
     private int DEFAULT_CAPACITY = 10;
 
