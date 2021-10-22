@@ -1,15 +1,12 @@
-import java.io.*;
+
 import java.util.Scanner;
 
-class Stack<AnyType> implements Iterable<AnyType> {
+class Stack {
     private int DEFAULT_CAPACITY = 10;
-    // ive changed it to static because ive encountered some issues about the size
-    // of array in the sort code
+
     private int theSize;
-    private AnyType[] theItems;
-    int top =-1;
-
-
+    private char[] theItems;
+    int top = -1;
 
     public Stack() {
         doClear();
@@ -27,29 +24,25 @@ class Stack<AnyType> implements Iterable<AnyType> {
     public int size() {
         return theSize;
     }
-/*
-    public boolean isEmpty() {
-        return size() == 0;
-    }
-*/
+
     public void trimToSize() {
         ensureCapacity(size());
     }
 
-    public AnyType get(int idx) {
+    public Character get(int idx) {
         if (idx < 0 || idx >= size())
             throw new ArrayIndexOutOfBoundsException();
         return theItems[idx];
     }
 
-    public AnyType[] getArray() {
-        return (AnyType[]) theItems;
+    public char[] getArray() {
+        return theItems;
     }
 
-    public AnyType set(int idx, AnyType newVal) {
+    public Character set(int idx, Character newVal) {
         if (idx < 0 || idx >= size())
             throw new ArrayIndexOutOfBoundsException();
-        AnyType old = theItems[idx];
+        Character old = theItems[idx];
         theItems[idx] = newVal;
         return old;
     }
@@ -57,18 +50,18 @@ class Stack<AnyType> implements Iterable<AnyType> {
     public void ensureCapacity(int newCapacity) {
         if (newCapacity < theSize)
             return;
-        AnyType[] old = theItems;
-        theItems = (AnyType[]) new Object[newCapacity];
+        char[] old = theItems;
+        theItems = new char[newCapacity];
         for (int i = 0; i < size(); i++)
             theItems[i] = old[i];
     }
 
-    public boolean add(AnyType x) {
+    public boolean add(Character x) {
         add(size(), x);
         return true;
     }
 
-    public void add(int idx, AnyType x) {
+    public void add(int idx, Character x) {
 
         if (theItems.length == size())
             ensureCapacity(size() * 2 + 1);
@@ -78,39 +71,15 @@ class Stack<AnyType> implements Iterable<AnyType> {
         theSize++;
     }
 
-    public AnyType remove(int idx) {
-        AnyType removedItem = theItems[idx];
+    public Character remove(int idx) {
+        Character removedItem = theItems[idx];
         for (int i = idx; i < size() - 1; i++)
             theItems[i] = theItems[i + 1];
         theSize--;
         return removedItem;
     }
 
-    public java.util.Iterator<AnyType> iterator() {
-        return new ArrayListIterator();
-    }
-
-    private class ArrayListIterator implements java.util.Iterator<AnyType> {
-
-        private int current = 0;
-
-        public boolean hasNext() {
-            return current < size();
-        }
-
-        public AnyType next() {
-            return theItems[current++];
-        }
-
-        public void remove() {
-            Stack.this.remove(--current);
-        }
-
-    }
-
-
-
-    static int prec(char x) {
+    static int precedence(char x) {
         if (x == '+' || x == '-')
             return 1;
         if (x == '*' || x == '/' || x == '%')
@@ -118,21 +87,14 @@ class Stack<AnyType> implements Iterable<AnyType> {
         return 0;
     }
 
+    void push(Character data) {
 
-    char a[] = new char[100];
- 
+        theItems[++top] = data;
 
-    void push(char c) {
-        try {
-            a[++top] = c;
-        } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("Stack full, no room to push, size=100");
-            System.exit(0);
-        }
     }
 
     char pop() {
-        return a[top--];
+        return theItems[top--];
     }
 
     boolean isEmpty() {
@@ -140,65 +102,51 @@ class Stack<AnyType> implements Iterable<AnyType> {
     }
 
     char peek() {
-        return a[top];
+        return theItems[top];
     }
+
 }
 
 public class MyArraylist_Stack {
     static Stack stack = new Stack();
 
-    public static void main(String argv[]) throws IOException {
-     Scanner kb = new Scanner(System.in);
+    public static void main(String args[]) {
+        Scanner kb = new Scanner(System.in);
+        boolean balance = false;
         int option;
+        System.out.println();
         do {
-            System.out.println("[1] parenthesis balancing\n[2] infix to postfix conversion");
+            System.out.println("[1] parenthesis balancing\n[2] infix to postfix conversion\n[3] Exit");
+            System.out.print("> ");
             option = kb.nextInt();
 
             switch (option) {
             case 1:
-                boolean balance;
-                System.out.println("Parenthesis balancing");
-                System.out.println();
-                System.out.print(">");
+
+                System.out.println("\nParenthesis balancing");
+
+                System.out.print("> ");
                 String data = kb.next();
-
-                for (int i = 0; i < data.length(); i++) {
-                    if (data.charAt(i) == '(') {
-                        stack.push(data.charAt(i));
-                    }
-                    if (data.charAt(i) == ')') {
-                        stack.pop();
-                    }
-
-                }
-                if (stack.size() == 0) {
-                    balance = true;
-                } else {
-                    balance = false;
-                }
-
-                System.out.println("balance = " + balance);
+                System.out.println("balance = " + balance(data));
                 stack.clear();
+                System.out.println();
+
                 break;
 
             case 2:
+                System.out.println();
                 System.out.println("Infix to postfix conversion");
                 System.out.print("infix >");
                 String infix = kb.next();
-                System.out.println("postfix > "+toPostfix(infix));
+                System.out.println("postfix > " + toPostfix(infix));
+                System.out.println();
+                break;
             default:
                 break;
             }
 
         } while (option != 3);
-  
-  
-  
-  
-  
-  
-  
-  
+
     }
 
     private static String toPostfix(String infix)
@@ -207,27 +155,28 @@ public class MyArraylist_Stack {
         char symbol;
         String postfix = "";
         for (int i = 0; i < infix.length(); ++i)
-        // while there is input to be read
+
         {
             symbol = infix.charAt(i);
-            // if it's an operand, add it to the string
-            if (Character.isLetter(symbol))
+
+            if (Character.isLetter(symbol) || Character.isDigit(symbol))
                 postfix = postfix + symbol;
             else if (symbol == '(')
-            // push 
+
             {
                 stack.push(symbol);
             } else if (symbol == ')')
-            // push everything back to (
+
             {
                 while (stack.peek() != '(') {
                     postfix = postfix + stack.pop();
                 }
-                stack.pop(); // remove '('
+                stack.pop();
             } else
-            // print operators occurring before it that have greater precedence
+
             {
-                while (!stack.isEmpty() && !(stack.peek() == '(') && stack.prec(symbol) <= stack.prec(stack.peek()))
+                while (!stack.isEmpty() && !(stack.peek() == '(')
+                        && stack.precedence(symbol) <= stack.precedence(stack.peek()))
                     postfix = postfix + stack.pop();
                 stack.push(symbol);
             }
@@ -237,5 +186,25 @@ public class MyArraylist_Stack {
         return postfix;
     }
 
-   
+    static boolean balance(String data) {
+        for (int i = 0; i < data.length(); i++) {
+
+            if (data.charAt(i) == '(') {
+                stack.push(data.charAt(i));
+            }
+            if (data.charAt(i) == ')') {
+                stack.pop();
+            }
+
+        }
+
+        if (stack.top == -1) {
+            return true;
+        }
+
+        else {
+            return false;
+        }
+
+    }
 }
