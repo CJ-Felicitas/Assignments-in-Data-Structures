@@ -203,7 +203,7 @@ public class MyLinkedList_Queue<AnyType> implements Iterable<AnyType> {
     }
 
     void printlist() {
-        // sorts the list first
+        
         
         // prints the list
         for (int i = 0; i < size(); i++) {
@@ -213,6 +213,8 @@ public class MyLinkedList_Queue<AnyType> implements Iterable<AnyType> {
 
 
 // for queue 
+// first in and first out fifo
+
 
 void enqueue(AnyType data){
 add(data);
@@ -220,16 +222,7 @@ add(data);
 }
 
 void dequeue(){
-    
-    remove(0);
-
-    for (int i = 0; i < size(); i++) {
-
-        for (int j = i + 1; j < size(); j++) {
-             
-
-        }
-    }
+remove(0);
 }
 
 
@@ -249,17 +242,12 @@ void dequeue(){
         System.out.println();
         System.out.println();
 
-        // initial data that will be inserted just for the show list
-        // purposes only
-        // the order of adding the data is just like this
-        // 10 9 8 7 6 5 4 3 2 1 0
-        // descending order
+     
 
  
         System.out.println("\n");
 
-        // do while loop for the menu driven that will terminate the code once the user
-        // chooses option 6
+     
         do {
             System.out.print("1. Enqueue\n2. Dequeue\n3. Show list\n4. Exit\n> ");
 
