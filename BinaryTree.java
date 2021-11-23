@@ -1,10 +1,24 @@
+// dear future me, incase you're wondering what's this program about
+// here are the instructions for this performance task 6
+
+/**
+ * Modify the given binary tree program code
+that will accept an arithmetic expression then display its equivalent in inorder, pre-order, and post-order
+notations. Consider the use of parentheses in the infix notation.
+Submit program code and video.
+ * 
+ * 
+ * 
+ * 
+ */
+import java.util.Scanner;
 import java.util.Stack;
 
 public class BinaryTree<AnyType extends Comparable<? super AnyType>>
 {
     public static class BinaryNode<AnyType>
     {
-        //constructors
+    
         BinaryNode(AnyType theElement) { this(theElement, null, null);}
         BinaryNode(AnyType theElement, BinaryNode<AnyType> lt, BinaryNode <AnyType> rt)
         { element = theElement; left=lt; right= rt; }
@@ -17,8 +31,7 @@ public class BinaryTree<AnyType extends Comparable<? super AnyType>>
     private BinaryNode<AnyType> root;
     
     public BinaryTree(){ root= null; }
-    
-    //public BinaryTree(AnyType x){ root = null; root.element=x; root.left=null ; root.right=null; }
+
     
     public void makeEmpty() {root = null;}
     
@@ -49,44 +62,42 @@ public class BinaryTree<AnyType extends Comparable<? super AnyType>>
     }
     
 
-    public boolean isOperand(char x)
-    {
-        return (x >= 'a' && x <= 'z') ||
-                (x >= 'A' && x <= 'Z');
-    }
+
      
-    // Get Infix for a given postfix
-    // expression
-    public void getInfix(String exp)
+   // modifications starts from here 
+    public void Inorder_with_parenthesis(String exp)
     {
-        Stack<String> s = new Stack<String>();
+
+        int exp_size = exp.length();
+        char[] expression = new char[exp_size];
+
+for (int i = 0; i < exp.length(); i++) {
+    expression[i] = exp.charAt(i);
+
+}
+
+        Stack<String> stack = new Stack<String>();
      
-        for (int i = 0; i < exp.length(); i++)
+        for (int i = 0; i < exp_size; i++)
         {
-            // Push operands
-            if (isOperand(exp.charAt(i)))
+           
+            if ((expression[i]>= 'a' &&expression[i]<= 'z')||(expression[i] >= 'A' && expression[i] <= 'Z'))
             {
-            s.push(exp.charAt(i) + "");
+            stack.push(exp.charAt(i) + "");
             }
-     
-            // We assume that input is
-            // a valid postfix and expect
-            // an operator.
+
             else
             {
-                String op1 = s.peek();
-                s.pop();
-                String op2 = s.peek();
-                s.pop();
-                s.push("(" + op2 + exp.charAt(i) +
-                        op1 + ")");
+                String op1 = stack.peek();
+                stack.pop();
+                String op2 = stack.peek();
+                stack.pop();
+                stack.push("(" + op2 + expression[i] +  op1 + ")");
             }
         }
      
-        // There must be a single element
-        // in stack now which is the required
-        // infix.
-        System.out.println(s.peek());
+
+        System.out.println(stack.peek());
     }
     
 
@@ -188,14 +199,16 @@ public class BinaryTree<AnyType extends Comparable<? super AnyType>>
         }
     }
     public static void main(String args[]) {
-    
+        
+        Scanner kb = new Scanner (System.in);
+
         BinaryTree BT = new BinaryTree();
         BinaryNode BN[] = new BinaryNode[10];
         BinaryNode BNTemp1;
         int idx=0;
         
-        String AE="ab+cde+**f+";
-     
+System.out.print("Arithmetic Expression: ");
+        String AE = kb.next();
         for (int i=0; i<AE.length();i++){
            
             if(AE.charAt(i)=='+' || AE.charAt(i)=='-' || AE.charAt(i)=='*' || AE.charAt(i)=='/'){
@@ -213,10 +226,9 @@ public class BinaryTree<AnyType extends Comparable<? super AnyType>>
         }
         System.out.println();
         BT.root = BN[0];
-        System.out.print("Inorder: ");BT.InOrder(BT.root);
+        System.out.print("\nInorder Modified: " );BT.Inorder_with_parenthesis(AE); 
         System.out.print("\nPreOrder: ");BT.PreOrder(BT.root);
         System.out.print("\nPostOrder: ");BT.PostOrder(BT.root);
-        System.out.print("\nInorder Modified kadtong naay parenthesis: " );BT.getInfix(AE); 
        
     }
 
