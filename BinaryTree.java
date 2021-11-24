@@ -7,6 +7,8 @@ that will accept an arithmetic expression then display its equivalent in inorder
 notations. Consider the use of parentheses in the infix notation.
 Submit program code and video.
  * 
+ * last date modified: November 24, 2021 5:57pm
+ * 
  * 
  * 
  * 
@@ -65,14 +67,14 @@ public class BinaryTree<AnyType extends Comparable<? super AnyType>>
 
      
    // modifications starts from here 
-    public void Inorder_with_parenthesis(String exp)
+    public void Inorder_with_parenthesis(String arithmetic_expression)
     {
 
-        int exp_size = exp.length();
+        int exp_size = arithmetic_expression.length();
         char[] expression = new char[exp_size];
 
-for (int i = 0; i < exp.length(); i++) {
-    expression[i] = exp.charAt(i);
+        for (int i = 0; i < arithmetic_expression.length(); i++) {
+        expression[i] = arithmetic_expression.charAt(i);
 
 }
 
@@ -83,16 +85,16 @@ for (int i = 0; i < exp.length(); i++) {
            
             if ((expression[i]>= 'a' &&expression[i]<= 'z')||(expression[i] >= 'A' && expression[i] <= 'Z'))
             {
-            stack.push(exp.charAt(i) + "");
+            stack.push(expression[i] + "");
             }
 
             else
             {
-                String op1 = stack.peek();
+                String a = stack.peek();
                 stack.pop();
-                String op2 = stack.peek();
+                String b = stack.peek();
                 stack.pop();
-                stack.push("(" + op2 + expression[i] +  op1 + ")");
+                stack.push("(" + b + expression[i] +  a + ")");
             }
         }
      
@@ -207,7 +209,9 @@ for (int i = 0; i < exp.length(); i++) {
         BinaryNode BNTemp1;
         int idx=0;
         
-System.out.print("Arithmetic Expression: ");
+
+        
+System.out.print("\n\nArithmetic Expression: ");
         String AE = kb.next();
         for (int i=0; i<AE.length();i++){
            
@@ -226,9 +230,10 @@ System.out.print("Arithmetic Expression: ");
         }
         System.out.println();
         BT.root = BN[0];
-        System.out.print("\nInorder Modified: " );BT.Inorder_with_parenthesis(AE); 
-        System.out.print("\nPreOrder: ");BT.PreOrder(BT.root);
+        System.out.print("\nInorder: " );BT.Inorder_with_parenthesis(AE); 
+        System.out.print("PreOrder: ");BT.PreOrder(BT.root);
         System.out.print("\nPostOrder: ");BT.PostOrder(BT.root);
+        System.out.println("\n");
        
     }
 
